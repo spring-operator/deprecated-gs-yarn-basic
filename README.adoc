@@ -28,6 +28,7 @@ projects: [spring-hadoop]
 :yarn_base_appmaster: gs-yarn-basic-appmaster
 :yarn_base_container: gs-yarn-basic-container
 :yarn_base_client: gs-yarn-basic-client
+:yarn_base_dist: gs-yarn-basic-dist
 This guide walks you through the process of creating a Spring Hadoop YARN application.
 
 == What you'll build
@@ -37,12 +38,8 @@ You'll build a simple Hadoop YARN application with Spring Hadoop and Spring Boot
 
 == What you'll need
 
- - About 15 minutes
- - A favorite text editor or IDE
- - http://www.oracle.com/technetwork/java/javase/downloads/index.html[JDK {java_version}] or later
- - http://www.gradle.org/downloads[Gradle 1.8+]
- - Cluster or local single-node instance based on Hadoop 2.2.0 or later
- - You can also import the code from this guide as well as view the web page directly into link:/guides/gs/sts[Spring Tool Suite (STS)] and work your way through it from there.
+include::https://raw.github.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
+ - Local single-node instance based on Hadoop 2.2.0 or later
 
 include::https://raw.github.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
@@ -171,25 +168,18 @@ Final part for your application is its runtime configuration which glues all the
 
 You can then write your own defaults for your own environment. Because these {ConfigurationProperties}[`@ConfigurationProperties`] are resolved at runtime by Spring Boot, you even have an easy option to overwrite these properties either by using command-line options or provide additional configuration property files.
 
+include::https://raw.github.com/spring-guides/getting-started-macros/master/build_yarn_application.adoc[]
+
 == Run the Application
 
 Now that you've successfully compiled and packaged your application, it's time to do the fun part and execute it on a Hadoop YARN.
-
-Below listing shows files after a succesfull gradle build.
-
-[source]
-----
-$ ls -lt build/libs/
--rw-r--r-- 1 hadoop hadoop 37385828 Mar 23 12:39 gs-yarn-basic-container-0.1.0.jar
--rw-r--r-- 1 hadoop hadoop 37384804 Mar 23 12:39 gs-yarn-basic-client-0.1.0.jar
--rw-r--r-- 1 hadoop hadoop 37384708 Mar 23 12:39 gs-yarn-basic-appmaster-0.1.0.jar
-----
 
 Simply run your executable client jar.
 
 [source]
 ----
-$ java -jar build/libs/gs-yarn-basic-client-0.1.0.jar
+$ cd gs-yarn-basic-dist
+$ java -jar target/gs-yarn-basic-dist/gs-yarn-basic-client-0.1.0.jar
 ----
 
 Using a Resource Manager UI you can see status of an application.

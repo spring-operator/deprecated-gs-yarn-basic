@@ -8,6 +8,10 @@ buildscript {
 }
 
 allprojects {
+    apply plugin: 'base'
+}
+
+subprojects { subproject ->
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
@@ -16,22 +20,30 @@ allprojects {
         mavenCentral()
         maven { url "http://repo.spring.io/libs-milestone" }
     }
-}
-
-subprojects { subproject ->
-    apply plugin: 'spring-boot'
     dependencies {
         compile("org.springframework.data:spring-yarn-boot:2.0.0.RC2")
     }
     task copyJars(type: Copy) {
         from "$buildDir/libs"
-        into "$rootDir/build/libs"
+        into "$rootDir/gs-yarn-basic-dist/target/gs-yarn-basic-dist/"
         include "**/*.jar"
     }
     assemble.doLast {copyJars.execute()}
 }
 
-configure(rootProject) {
+project('gs-yarn-basic-client') {
+    apply plugin: 'spring-boot'
+}
+
+project('gs-yarn-basic-appmaster') {
+    apply plugin: 'spring-boot'
+}
+
+project('gs-yarn-basic-container') {
+    apply plugin: 'spring-boot'
+}
+
+project('gs-yarn-basic-dist') {
     dependencies {
         compile project(":gs-yarn-basic-client")
         compile project(":gs-yarn-basic-appmaster")
@@ -44,15 +56,6 @@ configure(rootProject) {
     test.dependsOn(':gs-yarn-basic-appmaster:assemble')
     test.dependsOn(':gs-yarn-basic-container:assemble')
     clean.doLast {ant.delete(dir: "target")}
-}
-
-project('gs-yarn-basic-client') {
-}
-
-project('gs-yarn-basic-appmaster') {
-}
-
-project('gs-yarn-basic-container') {
 }
 
 task wrapper(type: Wrapper) {
