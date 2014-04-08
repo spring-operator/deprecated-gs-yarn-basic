@@ -73,7 +73,9 @@ In this guide we are going to show how these 3 components, {YarnClient}[`YarnCli
 [[scratch]]
 == Set up the project
 
-First you set up a basic build script. You can use your preferred build system when building apps with Spring, but the code you need to work with when using http://gradle.org[Gradle] is included here. If you're not familiar with it, refer to link:/guides/gs/gradle[Building Java Projects with Gradle]. We also provide a Maven pom.xml 
+include::https://raw.github.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
+
+include::https://raw.github.com/spring-guides/getting-started-macros/master/build_system_intro_yarn.adoc[]
 
 include::https://raw.github.com/spring-guides/getting-started-macros/master/create_directory_structure_yarn_hello.adoc[]
 
@@ -179,8 +181,7 @@ To accomplish this, simply run your executable client jar.
 
 [source]
 ----
-$ cd gs-yarn-basic-dist
-$ java -jar target/gs-yarn-basic-dist/gs-yarn-basic-client-0.1.0.jar
+$ java -jar gs-yarn-basic-dist/target/gs-yarn-basic-dist/gs-yarn-basic-client-0.1.0.jar
 ----
 
 Using the http://localhost:8088/cluster[Resource Manager UI] you can see status of an application.

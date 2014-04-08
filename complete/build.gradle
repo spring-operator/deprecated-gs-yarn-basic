@@ -56,6 +56,7 @@ project('gs-yarn-basic-dist') {
     test.dependsOn(':gs-yarn-basic-appmaster:assemble')
     test.dependsOn(':gs-yarn-basic-container:assemble')
     clean.doLast {ant.delete(dir: "target")}
+    jar.enabled = false
 }
 
 task wrapper(type: Wrapper) {
